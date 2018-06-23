@@ -6,6 +6,23 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 
+class menu(BoxLayout):
+
+    def __init__(self, **kwargs):
+        super(menu,self).__init__(**kwargs)
+
+        self.orientation = 'vertical'
+
+        label = Label(text='A Anciã', font_size=100)
+
+        btCont = AnchorLayout(anchor_x = 'center', anchor_y = 'top')
+        bt = Button(text='Iniciar', size_hint = [.4,.2], on_release=jogo.set)
+
+        btCont.add_widget(bt)
+
+        self.add_widget(label)
+        self.add_widget(btCont)
+
 class combo:
 
     def __init__(self):
@@ -105,6 +122,13 @@ class gradeMenor(GridLayout):
                     if jogo.feito:
                         jogo.isolar(txt,jogo.vez)
 
+                if jogo.vez == 1:
+                    jogo.m0.color = [0,0,1,1]
+                    jogo.m1.color = [1,1,1,1]
+                else:
+                    jogo.m1.color = [1,0,0,1]
+                    jogo.m0.color = [1,1,1,1]
+
                     
                 jogo.vez += jogo.marcas[jogo.vez+2]
 
@@ -140,27 +164,36 @@ class gradeMaior(GridLayout):
 class main(App):
 
     def build(self):
+        self.vez = 0
 
         self.janela = BoxLayout(orientation='horizontal')
 
         self.lbls0 = BoxLayout(orientation='vertical',size_hint=[.3,1])
         self.lbls1 = BoxLayout(orientation='vertical',size_hint=[.3,1])
         
-        lbl0 = Label(text='x',font_size=70)
-        lbl1 = Label(text='o',font_size=70)
+        self.m0 = Label(text='x',font_size=70)
+        self.m1 = Label(text='o',font_size=70)
 
         self.lbl0 = Label(text='0',font_size=70)
         self.lbl1 = Label(text='0',font_size=70)
 
         self.lbls = [self.lbl0,self.lbl1]
 
-        self.lbls0.add_widget(lbl0)
+        self.lbls0.add_widget(self.m0)
         self.lbls0.add_widget(self.lbl0)
 
-        self.lbls1.add_widget(lbl1)
+        self.lbls1.add_widget(self.m1)
         self.lbls1.add_widget(self.lbl1)
         
-        self.set(None)
+        self.menu = menu()
+        self.janela.add_widget(self.menu)
+
+        if jogo.vez == 0:
+            jogo.m0.color = [0,0,1,1]
+            jogo.m1.color = [1,1,1,1]
+        else:
+            jogo.m1.color = [1,0,0,1]
+            jogo.m0.color = [1,1,1,1]
 
         
         return self.janela
@@ -170,7 +203,6 @@ class main(App):
         self.start = True
         self.u = None
         self.marcas = ['x','o',1,-1]
-        self.vez = 0
 
         self.combos = combo()
 
@@ -183,10 +215,12 @@ class main(App):
 
         self.r.add_widget(self.g)
 
-        if x!=None:
+        try:
             self.janela.remove_widget(self.lbls0)
             self.janela.remove_widget(self.fim)
             self.janela.remove_widget(self.lbls1)
+        except:
+            self.janela.remove_widget(self.menu)
 
 
         self.janela.add_widget(self.lbls0)
@@ -210,7 +244,7 @@ class main(App):
         
         lbl = Label(text='\\\\ '+txt+' //', font_size=100)
         anc = AnchorLayout(anchor_x = 'center', anchor_y='top')
-        bt = Button(text='Novo Jogo', size_hint=[.5,.3], on_release=self.set)
+        bt = Button(text='Continuar', size_hint=[.4,.2], on_release=self.set)
         anc.add_widget(bt)
 
         self.fim.add_widget(lbl)
