@@ -5,6 +5,11 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
+from kivy.clock import Clock
+from random import random
+from bot import Bot
+
+        
 
 class menu(BoxLayout):
 
@@ -15,13 +20,42 @@ class menu(BoxLayout):
 
         label = Label(text='A Anciã', font_size=100)
 
-        btCont = AnchorLayout(anchor_x = 'center', anchor_y = 'top')
-        bt = Button(text='Iniciar', size_hint = [.4,.2], on_release=jogo.set)
+        self.btCont = AnchorLayout(anchor_x = 'center', anchor_y = 'top')
+        self.bt = Button(text='Iniciar', size_hint = [.4,.2], on_release=self.set)
 
-        btCont.add_widget(bt)
+        self.btCont.add_widget(self.bt)
 
         self.add_widget(label)
-        self.add_widget(btCont)
+        self.add_widget(self.btCont)
+
+    def set(self, x):
+        self.btCont.remove_widget(self.bt)
+
+        self.bts = BoxLayout(orientation='vertical', size_hint = [.4,.4])
+
+        bt0 = Button(text='Multiplayer Local', on_release=jogo.set)
+        bt1 = Button(text='Player x Bot', on_release = self.enBot)
+
+        self.bts.add_widget(bt0)
+        self.bts.add_widget(bt1)
+
+        self.btCont.add_widget(self.bts)
+
+    def enBot(self, x):
+        self.btCont.remove_widget(self.bts)
+
+        block = BoxLayout(orientation='vertical',size_hint = [.4,.6])
+
+        lbl = Label(text='Escolha sua marca', font_size=30)
+        bt0 = Button(text='x', id='x',on_release = jogo.enBot)
+        bt1 = Button(text='o', id='o',on_release = jogo.enBot)
+
+        block.add_widget(lbl)
+        block.add_widget(bt0)
+        block.add_widget(bt1)
+
+        self.btCont.add_widget(block)
+        
 
 class combo:
 
@@ -112,25 +146,11 @@ class gradeMenor(GridLayout):
                 jogo.u = bt.id
 
                 m = int(bt.id)
+                
+                jogo.play(self.id, m, bt.text)
 
-                self.feito = self.combos.add(m)
-                txt = bt.text
-                if self.feito:
-                    self.isolar(txt)
-
-                    jogo.feito = jogo.combos.add(self.id)
-                    if jogo.feito:
-                        jogo.isolar(txt,jogo.vez)
-
-                if jogo.vez == 1:
-                    jogo.m0.color = [0,0,1,1]
-                    jogo.m1.color = [1,1,1,1]
-                else:
-                    jogo.m1.color = [1,0,0,1]
-                    jogo.m0.color = [1,1,1,1]
-
-                    
-                jogo.vez += jogo.marcas[jogo.vez+2]
+                
+                
 
     def isolar(self,txt):
         for i in range(8):
@@ -166,6 +186,8 @@ class main(App):
     def build(self):
         self.vez = 0
 
+        self.enable = False
+
         self.janela = BoxLayout(orientation='horizontal')
 
         self.lbls0 = BoxLayout(orientation='vertical',size_hint=[.3,1])
@@ -196,9 +218,26 @@ class main(App):
             jogo.m0.color = [1,1,1,1]
 
         
+
+        
         return self.janela
 
+    def up(self,x):
+        if self.botTurn:
+            self.bot.play(jogo.u, self)
+
     def set(self, x):
+        if self.enable:
+            if x == 'o':
+                self.botTurn = True
+                self.bot = Bot('x')
+            elif x == 'x':
+                self.botTurn = False
+                self.bot = Bot('o')
+            else:
+                pass
+            Clock.schedule_interval(self.up, 1)
+        
         self.pintado = None
         self.start = True
         self.u = None
@@ -254,6 +293,34 @@ class main(App):
         self.janela.add_widget(self.lbls1)
 
         self.lbls[w].text = str(int(self.lbls[w].text)+1)
+
+    def enBot(self,x):
+        self.enable = True
+        self.set(x.id)
+
+    def play(self, x, m, txt):
+        x = int(x)
+        
+        self.g.velhas[x].feito = self.g.velhas[x].combos.add(m)
+        
+        if self.g.velhas[x].feito:
+            self.g.velhas[x].isolar(txt)
+
+            self.feito = self.combos.add(x)
+            if self.feito:
+                self.isolar(txt,self.vez)
+
+        if self.vez == 1:
+            self.m0.color = [0,0,1,1]
+            self.m1.color = [1,1,1,1]
+        else:
+            self.m1.color = [1,0,0,1]
+            self.m0.color = [1,1,1,1]
+        self.vez += self.marcas[self.vez+2]
+
+        if self.enable:
+            self.botTurn = not self.botTurn
+        
 
 jogo = main()
 jogo.run()
