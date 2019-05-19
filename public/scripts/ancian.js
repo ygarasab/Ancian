@@ -130,7 +130,38 @@ class Ancian{
 
                 }
 
-                if(this.velhas[this.velha].ativo) this.velha = -1
+                if(this.velhas[this.velha].ativo) {
+                    
+                    this.velha = -1
+
+                    for(var velha of this.velhas){
+
+                        if(!velha.ativo){
+                            for(var i of velha.children) i.style.border = '1px solid yellow'
+                        
+                        }
+
+                    }
+                
+                }
+
+                else{
+
+                    for(var velha of this.velhas){
+
+                        if(!velha.ativo){
+                            if(this.velhas.indexOf(velha) == this.velha)
+                            for(var i of velha.children) i.style.border = '1px solid yellow'
+                            
+                            else
+                            for(var i of velha.children) i.style.border = '1px solid white'
+                        
+
+                        }
+
+                    }
+
+                }
                 
 
                 this.player = !this.player ? 1 : 0
