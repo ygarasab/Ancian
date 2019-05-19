@@ -125,6 +125,12 @@ io
 
 		})
 
+		.on('sala off', (nome) => {
+
+			io.to('hub').emit('sala off', nome)
+
+		})
+
 
 
 	})

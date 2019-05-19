@@ -39,6 +39,7 @@
                 game = new Ancian(socket,0)
                 document.getElementById('you').innerHTML = "<p class='user'>"+name+"</p>"
                 socket.emit('start')
+                socket.emmi('sala off',salinha)
             }
             else start = 1
         })
@@ -55,7 +56,7 @@
 
         })
 
-        .on('ouvindo salas', () => socket.emit('sala on', salinha))
+        .on('ouvindo salas', () => { if(!game) socket.emit('sala on', salinha)})
 
         socket.username = username
 
