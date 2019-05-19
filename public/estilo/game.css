@@ -1,0 +1,60 @@
+html{
+    background-image: url(blur.jpg);
+}
+
+#canvas{
+
+    display: block;
+    margin: auto;
+
+}
+
+.velha{
+    display: inline-block;
+    margin: 3px;
+
+}
+
+.velha.x, .velha.o{
+
+    border-radius: 5px;
+    margin-top: 0px;
+    vertical-align: top;
+}
+
+.campo{
+
+    margin: 1px;
+    border: 1px solid white;
+    border-radius: 5px;
+    box-shadow: 0 0 1px white;
+
+}
+
+.campo:hover{
+
+    cursor: pointer;
+
+}
+
+.campo:active{
+
+    opacity: .8;
+
+}
+
+.campo:focus{
+    
+    outline: none;
+
+}
+
+.o{
+    background-color: blue;
+    color:white;
+}
+
+.x{
+    background-color: red;
+    color: white;
+}

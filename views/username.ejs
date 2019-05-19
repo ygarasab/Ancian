@@ -1,0 +1,43 @@
+<html>
+    <head>
+
+        <meta charset="utf-8"/>
+        <link rel="icon" href="estilo/favicon.ico">
+        <title>Ancian</title>
+        <link rel="stylesheet" href="estilo/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script>
+
+            wh = window.innerHeight
+
+            document.documentElement.style.backgroundSize = '400%'
+
+            if(window.innerWidth > 2*wh) document.documentElement.style.backgroundSize = '100%' 
+
+            window.onresize = () => {
+
+            wh = window.innerHeight
+            document.documentElement.style.backgroundSize = '400%'
+
+            if(window.innerWidth > 2*wh) document.documentElement.style.backgroundSize = '100%' 
+
+            }
+        </script>
+
+
+    </head>
+    <body>
+        <div class="containner">
+
+            <img src="icon.png"/>
+            <form action="home" method="post">
+                <input type="text" name="username" id="username" placeholder="Username">
+                <input type="submit" value=">">
+            </form>
+
+        </div>
+    </body>
+    <script>
+    </script>
+</html>

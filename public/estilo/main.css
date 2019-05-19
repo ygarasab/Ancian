@@ -1,0 +1,50 @@
+html{
+    background-image: url(blur.jpg);
+}
+
+img{
+    display: block;
+    margin: auto;
+    margin-top: 20vh;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 20px white;
+    width: 10vw;
+    min-width: 100px;
+}
+
+
+form{
+
+    display: block;
+    margin: 40px;
+    text-align: center;
+
+}
+
+input{
+    border : none;
+    padding: 10px;
+
+}
+
+#username{
+
+    border-radius: 10px 0 0 10px;
+    background-color: none;
+    color: gray;
+
+}
+
+input[type=submit]{
+    
+    border-radius: 0 10px 10px 0;
+    width: 30px;
+    color:white;
+
+}
+
+input:focus{
+    outline: none
+}
