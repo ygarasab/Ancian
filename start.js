@@ -93,11 +93,11 @@ io
 			socket.nome = data.name
 			socket.salinha = data.sala
 
-			io.to(data.sala).emit('hi')
+			io.to(data.sala).emit('hi', (socket.nome))
 
 		})
 
-		.on('start', () => io.to(socket.salinha).emit('start'))
+		.on('start', () => io.to(socket.salinha).emit('start',socket.nome))
 
 		.on('click', (data) => {
 			io.to(socket.salinha).emit('clicked',data)

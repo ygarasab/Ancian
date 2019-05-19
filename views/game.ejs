@@ -31,16 +31,22 @@
 
         var socket = io.connect()
 
-        .on('hi',() => {
+        .on('hi',(name) => {
+
+            console.log(document.getElementById('you'))
 
             if(start){
                 game = new Ancian(socket,0)
+                document.getElementById('you').innerHTML = "<p class='user'>"+name+"</p>"
                 socket.emit('start')
             }
             else start = 1
         })
 
-        .on('start',() => {if(!game) game = new Ancian(socket, 1)})
+        .on('start',(name) => {if(!game) {
+            game = new Ancian(socket, 1)
+            document.getElementById('you').innerHTML = "<p class='user'>"+name+"</p>"
+        }})
 
         .on('clicked',(data) => {
 

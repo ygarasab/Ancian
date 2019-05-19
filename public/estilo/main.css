@@ -71,15 +71,17 @@ input:focus{
 
 #me{
     display: block;
-    float: left;
-    text-align: left;
+    position: absolute;
+    left:0;
+    top: 0;
 }
 
 
 #you{
     display: block;
-    float: right;
-    text-align: right;
+    position: absolute;
+    right:0;
+    top: 0;
 }
 
 #me,#you{
@@ -101,6 +103,7 @@ a{
     }
 
     #me{
+        top: auto;
         bottom: 0;
     }
 

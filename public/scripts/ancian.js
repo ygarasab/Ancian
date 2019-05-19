@@ -60,13 +60,20 @@ class Ancian{
     display(){
 
         let wh = window.innerHeight
+        let ww = window.innerWidth
 
         this.canvas.style = "100%"
+        this.canvas.style.marginTop = (wh - ww)/2
         document.documentElement.style.backgroundSize = '400%'
 
         if(window.innerWidth > 2*wh) document.documentElement.style.backgroundSize = '100%'
 
-        if(window.innerWidth > wh) this.canvas.style.width = wh-17    
+        if(window.innerWidth > wh) {
+            
+            this.canvas.style.width = wh-17
+            this.canvas.style.marginTop = 0
+
+        }
         
         var cw = this.canvas.offsetWidth
         this.canvas.style.height = cw
