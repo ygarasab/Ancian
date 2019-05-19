@@ -1,6 +1,6 @@
 # Ancian
 
-Versão final disponível em ancian.herokuapp.com
+Versão final disponível em http://ancian.herokuapp.com
 
 Perspectiva de attualizações futuras para estabilidade
 
