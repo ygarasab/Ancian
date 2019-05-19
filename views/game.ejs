@@ -4,17 +4,63 @@
         <meta charset="utf-8"/>
         <link rel="icon" href="estilo/favicon.ico">
         <title>Ancian</title>
-        <link rel="stylesheet" href="estilo/game.css">
+        <link rel="stylesheet" href="/estilo/game.css">
+        <link rel="stylesheet" href="/estilo/main.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="scripts/ancian.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+        <script src="/scripts/ancian.js"></script>
 
     </head>
     <body>
+        <div id='me'>
+            <p class='user'><%= username %></p>
+        </div>
         <div id="canvas">
 
         </div>
+        <div id='you'></div>
     </body>
     <script>
-        var game = new Ancian()
+        var username = "<%= username %>"
+        var salinha = "<%= sala %>"
+
+        var game = 0
+
+
+        var start = 0
+
+        var socket = io.connect()
+
+        .on('hi',() => {
+
+            if(start){
+                game = new Ancian(socket,0)
+                socket.emit('start')
+            }
+            else start = 1
+        })
+
+        .on('start',() => {if(!game) game = new Ancian(socket, 1)})
+
+        .on('clicked',(data) => {
+
+            if(data.player != game.myplayer)
+                game.play(game.velhas[data.velha].children[data.campo],data.player)
+
+        })
+
+        .on('ouvindo salas', () => socket.emit('sala on', salinha))
+
+        socket.username = username
+
+        socket.emit("play",{
+
+            name : username,
+            sala : salinha
+
+        })
+
+        socket.emit('sala on', salinha)
+
     </script>
 </html>

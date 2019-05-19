@@ -1,12 +1,14 @@
 class Ancian{
 
-    constructor(){
+    constructor(socket, player){
 
         this.canvas = document.getElementById("canvas")
 
         this.velhas = []
 
         this.velha = -1
+
+        this.myplayer = player
 
         this.player = 0
 
@@ -24,31 +26,29 @@ class Ancian{
             velha.valor = 0
             
             this.velhas.push(velha)
-            
-        }
 
-        for (var velha of this.velhas) {
-
-            for (let i = 0; i < 9; i++) {
+            for (let j = 0; j < 9; j++) {
                 
                 var campo = document.createElement('button')
                 campo.className = 'campo'
                 campo.ativo = 0
                 campo.valor = 0
-                campo.pos = i
-                campo.velha = this.velhas.indexOf(velha)
+                campo.pos = j
+                campo.velha = i
 
-                campo.onclick = (event) => this.play(event)
+                campo.onclick = (event) => {
+                    socket.emit('click',{velha : i, campo : j, player : this.myplayer})
+                    this.play(event.target, this.myplayer)
+                }
 
                 velha.appendChild(campo)
 
             }
 
             this.canvas.appendChild(velha)
-
+            
         }
 
-        console.log()
 
         this.display()
 
@@ -90,10 +90,11 @@ class Ancian{
 
     }
 
-    play(event){
+    play(bt, player){
 
-        var bt = event.target
         var marcas = ['x','o']
+
+        if(player != this.player) return
         
         if(this.velha<0 || bt.velha == this.velha){
 

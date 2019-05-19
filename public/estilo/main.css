@@ -1,5 +1,6 @@
 html{
     background-image: url(blur.jpg);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 img{
@@ -47,4 +48,64 @@ input[type=submit]{
 
 input:focus{
     outline: none
+}
+
+#log{
+    margin-top:20px;
+    text-align: center;
+    color: gray;
+    margin-bottom: 40px;
+}
+
+.op{
+    display: block;
+    margin: 10px auto 10px auto;
+    width: 150px;
+    border:1px solid grey;
+    border-radius: 10px;
+    background:none;
+    color: gray;
+    height: 35px;;
+}
+
+
+#me{
+    display: block;
+    float: left;
+    text-align: left;
+}
+
+
+#you{
+    display: block;
+    float: right;
+    text-align: right;
+}
+
+#me,#you{
+    padding: 20px;
+}
+
+.op:focus{
+    outline: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+@media screen and (max-width: 600px){
+
+    #me,#you{
+        position: absolute;
+    }
+
+    #me{
+        bottom: 0;
+    }
+
+    #you{
+        top:0;
+    }
+
 }
