@@ -1,9 +1,7 @@
 # Ancian
 
-Esse jogo faz uso do kivy, então tenha certeza de tê-lo instalado.
+Versão final disponível em http://ancian.herokuapp.com
 
-Se você achar um erro, ou tiver uma sugestão, é só falar.
-
-#### Em breve disponível para jogar online!
+Perspectiva de attualizações futuras para estabilidade
 
 #### --Tubs--
