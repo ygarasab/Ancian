@@ -7,6 +7,10 @@ const port = process.env.PORT || 5000
 
 urlParser = bodyParser.urlencoded({extended:false})
 
+var players = []
+
+var salas = []
+
 app = express()	
 	
 	.use(express.static('public'))
@@ -45,6 +49,16 @@ app = express()
 
 	})
 
+	.get('/local', (req,res) => {
+
+		var username = req.session.username
+
+		if(!username) res.redirect('/')
+
+		else res.render('local', req.session)
+
+	})
+
 	.get('/play/:sala', (req, res) =>{
 
 		var username = req.session.username
@@ -60,21 +74,22 @@ app = express()
 		req.session.username = req.body.username
 		var username = req.session.username
 
-		console.log(username)
+		players.push(username)
+
+		console.log("<> Jogador logado como", username)
+		console.log(players)
 
 		res.render('home',req.session )
 
 	})
 
 
-server = app.listen(port, () => console.log(`Listening on ${ port }`))
+server = app.listen(port, () => console.log(`<> Listening on ${ port }`))
 
 var io = socket(server)
 io
 
 	.on('connection', (socket) => {
-		
-		console.log('[ LOG ] Socket conectado ## Id ', socket.id)
 		
 
 		socket

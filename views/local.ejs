@@ -1,23 +1,19 @@
 <html>
     <head>
 
-        <% include head.ejs %>         
+        <% include head.ejs %>
         <link rel="stylesheet" href="/estilo/game.css">
         <script src="/scripts/ancian.js"></script>
 
     </head>
     <body>
         <div id='me'>
-            <p class='user'><%= username %></p>
         </div>
         <div id="canvas">
-
         </div>
         <div id='you'></div>
     </body>
     <script>
-        var username = "<%= username %>"
-        var salinha = "<%= sala %>"
+        game = new Ancian(0,0)
     </script>
-    <script src="/scripts/engine.js"></script>
 </html>

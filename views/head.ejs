@@ -1,0 +1,23 @@
+<meta charset="utf-8"/>
+<link rel="icon" href="estilo/favicon.ico">
+<title>Ancian</title>
+<link rel="stylesheet" href="/estilo/main.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+<script>
+
+    wh = window.innerHeight
+
+    document.documentElement.style.backgroundSize = '400%'
+
+    if(window.innerWidth > 2*wh) document.documentElement.style.backgroundSize = '100%' 
+
+    window.onresize = () => {
+
+    wh = window.innerHeight
+    document.documentElement.style.backgroundSize = '400%'
+
+    if(window.innerWidth > 2*wh) document.documentElement.style.backgroundSize = '100%' 
+
+    }
+</script>

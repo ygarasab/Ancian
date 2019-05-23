@@ -1,8 +1,10 @@
 class Ancian{
 
-    constructor(socket, player){
+    constructor(player, socket){
 
         this.canvas = document.getElementById("canvas")
+
+        this.socket = socket
 
         this.velhas = []
 
@@ -37,7 +39,9 @@ class Ancian{
                 campo.velha = i
 
                 campo.onclick = (event) => {
-                    socket.emit('click',{velha : i, campo : j, player : this.myplayer})
+                    
+                    if(socket) socket.emit('click',{velha : i, campo : j, player : this.myplayer})
+                    
                     this.play(event.target, this.myplayer)
                 }
 
@@ -100,8 +104,9 @@ class Ancian{
     play(bt, player){
 
         var marcas = ['x','o']
+        var cores = ['blue','red']
 
-        if(player != this.player) return
+        if(this.socket && player != this.player) return
         
         if(this.velha<0 || bt.velha == this.velha){
 
@@ -137,7 +142,7 @@ class Ancian{
                     for(var velha of this.velhas){
 
                         if(!velha.ativo){
-                            for(var i of velha.children) i.style.border = '1px solid yellow'
+                            for(var i of velha.children) i.style.border = '1px solid '+cores[this.player]
                         
                         }
 
@@ -151,7 +156,7 @@ class Ancian{
 
                         if(!velha.ativo){
                             if(this.velhas.indexOf(velha) == this.velha)
-                            for(var i of velha.children) i.style.border = '1px solid yellow'
+                            for(var i of velha.children) i.style.border = '1px solid '+cores[this.player]
                             
                             else
                             for(var i of velha.children) i.style.border = '1px solid white'
